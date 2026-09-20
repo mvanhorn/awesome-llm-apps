@@ -33,7 +33,7 @@ on another shell, run them with `bash -c`.
 
 ## The team
 
-- **Workers (default: Gemini 3.5 Flash via the Antigravity CLI, `agy`)**: stateless
+- **Workers (default: Gemini 3.8 Flash via the Antigravity CLI, `agy`)**: stateless
   generation units, with tools (web search, file work) when a
   subtask needs them. Never interpolate a brief into a shell string;
   briefs carry quotes and arbitrary text, so that is a shell-injection
@@ -45,7 +45,7 @@ on another shell, run them with `bash -c`.
   # $brief = this worker's brief file; $out = its result file (absolute path)
   d=$(mktemp -d)
   ( cd "$d" && env -i HOME="$HOME" PATH="$PATH" \
-      agy --dangerously-skip-permissions --model "gemini-3.5-flash" \
+      agy --dangerously-skip-permissions --model "gemini-3.8-flash" --effort high \
       --print-timeout 5m -p "$(cat "$brief")" \
       > "$out"; s=$?; rm -rf "$d"; exit "$s" ) &
   pids+=($!)
@@ -53,7 +53,8 @@ on another shell, run them with `bash -c`.
 
   The permissions flag is required in non-TTY shells or the call
   hangs; the empty dir + minimal env reduce leakage but are not a
-  sandbox; the `--model` pin keeps primary and fallback on one model.
+  sandbox; the `--model` pin keeps primary and fallback on one model,
+  and `--effort high` satisfies the CLI's required effort selection.
   Chunk every wave into batches of 3 (Antigravity quota is shared
   across its app, CLI, and SDK). Start each batch with `pids=()`, reap
   each worker with its own `wait "$pid"` (a collective wait reports
@@ -68,11 +69,11 @@ on another shell, run them with `bash -c`.
   subtask that needs tools goes through agy or gets ESCALATE. Clean up
   all temp files at run end.
 
-- **Advisor (default: Claude Fable 5 via the claude CLI)**: consult
+- **Advisor (default: Claude Fable 5.1 via the claude CLI)**: consult
   written to a temp file, passed on stdin (never inline in the
   command), behind a timeout so a hung consult can't stall the loop
   (perl's alarm; timeout(1) is missing on stock macOS):
-  `perl -e 'alarm shift; exec @ARGV' 300 claude --model claude-fable-5 -p < "$consult"`.
+  `perl -e 'alarm shift; exec @ARGV' 300 claude --model claude-fable-5-1 -p < "$consult"`.
   Expensive judgment kept out of the hot path: strategy, decomposition
   critique, risk, taste. Never execution. If the CLI is missing or a
   consult fails, use the Anthropic API fallback in

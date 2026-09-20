@@ -1,25 +1,30 @@
 import asyncio
 import streamlit as st
-from browser_use import Agent, SystemPrompt
-from langchain_openai import ChatOpenAI
-from langchain_anthropic import ChatAnthropic
-from langchain_core.messages import HumanMessage
+from browser_use import Agent, ChatAnthropic, ChatGoogle, ChatOpenAI
 import re
 
 async def generate_meme(query: str, model_choice: str, api_key: str) -> None:
     # Initialize the appropriate LLM based on user selection
     if model_choice == "Claude":
         llm = ChatAnthropic(
-            model="claude-3-5-sonnet-20241022",
-            api_key=api_key
+            model="claude-sonnet-4-5",
+            api_key=api_key,
+            temperature=0.3,
         )
     elif model_choice == "Deepseek":
         llm = ChatOpenAI(
             base_url='https://api.deepseek.com/v1',
             model='deepseek-chat',
             api_key=api_key,
-            temperature=0.3
+            temperature=0.3,
+            reasoning_effort=None,
         )
+    elif model_choice == "Gemini":
+        llm = ChatGoogle(
+            model="gemini-3-flash-preview",
+            api_key=api_key,
+            temperature=0.3)
+
     else:  # OpenAI
         llm = ChatOpenAI(
             model="gpt-4o",
@@ -74,7 +79,7 @@ def main():
         # Model selection
         model_choice = st.selectbox(
             "Select AI Model",
-            ["Claude", "Deepseek", "OpenAI"],
+            ["Claude", "Deepseek", "OpenAI", "Gemini"],
             index=0,
             help="Choose which LLM to use for meme generation"
         )
@@ -87,6 +92,9 @@ def main():
         elif model_choice == "Deepseek":
             api_key = st.text_input("Deepseek API Key", type="password",
                                   help="Get your API key from https://platform.deepseek.com")
+        elif model_choice == "Gemini":
+            api_key = st.text_input("Gemini API Key", type="password",
+                                  help="Get your API key from https://aistudio.google.com/app/api-keys")
         else:
             api_key = st.text_input("OpenAI API Key", type="password",
                                   help="Get your API key from https://platform.openai.com")

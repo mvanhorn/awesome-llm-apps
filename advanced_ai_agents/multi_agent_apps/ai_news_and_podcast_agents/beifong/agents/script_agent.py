@@ -130,6 +130,6 @@ def podcast_script_agent_run(
     session_state['stage'] = 'script'
     SessionService.save_session(session_id, session_state)
 
-    if not session_state["generated_script"] and not session_state["generated_script"].get("sections"):
+    if not session_state["generated_script"] or not session_state["generated_script"].get("sections"):
         return "Failed to generate podcast script."
     return f"Generated podcast script for '{query}' with {len(sources)} confirmed sources."

@@ -12,7 +12,7 @@
         "Every worker result gets a PASS/FIX/ESCALATE verdict against its own criteria",
         "The final report includes a verification ledger and advisor notes applied or rebutted",
         "Parallel worker outputs are collected from per-worker scratch files (mktemp + redirect, wait, read in dispatch order), never from a shared interleaved stdout",
-        "Workers dispatch via the agy CLI by default with --model pinned to gemini-3.5-flash (same model as the API fallback), waves chunked into batches of at most 3 with a wait between batches",
+        "Workers dispatch via the agy CLI by default with --model pinned to gemini-3.8-flash (same model as the API fallback), waves chunked into batches of at most 3 with a wait between batches",
         "Briefs and consults are written to temp files (handed to agy as a quoted expansion, jq-built payloads on the API fallback, consults passed on stdin); never interpolated inline into shell strings",
         "The Gemini API fallback fails fast if neither GEMINI_API_KEY nor GOOGLE_API_KEY is set (no silent empty-key call)",
         "Each backgrounded worker runs in its own subshell so parallel cd/cleanup and traps never collide",

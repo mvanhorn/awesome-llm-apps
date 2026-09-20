@@ -1,0 +1,115 @@
+{
+  "skill_name": "first-reader",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "review this, it's going on our company blog for senior engineers: evals/first-reader/fixtures/hollow-clean.md",
+      "expected_output": "One starting line, then silence while the run happens, then a short spoken-language result: whether the skimmer opened it, where each reader leaned in or left (quoted from their logs, by initial), what survived recall, one question back to the author, and a link or path to the page with the readers' comments beside every passage. No fixes, no scores, no rewrite.",
+      "expectations": [
+        "The agent replies with a single starting line and does not narrate steps, casts, or instrument names during the run",
+        "The agent never opens the draft before the timed reads; only the scripts touch it (a pasted draft is saved to a file and read through fresh subagents)",
+        "The timed reads run through feed.py in served mode: readers receive an address with a token, never a file path, and cannot advance faster than the dwell floor",
+        "The skeptical reader's quit point, if any, is reported as a specific passage with the reader's own words quoted",
+        "The recall result is reported as what survived (retelling, exact lines, the ending) rather than as a score",
+        "The result contains no numbered list of fixes, no suggested rewrites, and no numeric quality score",
+        "The page is built with room.py and delivered as a link or a local path; it carries the skimmer's verdict and the readers' notes beside passages",
+        "The result ends with exactly one question back to the author"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I ran my anti-slop skill on this and it still needs a final gate. Review evals/first-reader/fixtures/human-tells.md, audience is engineers on Hacker News.",
+      "expected_output": "A happy reading: both readers finish, recall matches the intended gist, and the verdict says so without inventing defects. Surface tells (em dashes, triads, a quotable kicker) are not flagged because no reader tripped on them.",
+      "expectations": [
+        "The report states that the piece works and does not manufacture findings to seem thorough",
+        "No em dash, rule of three, or word-list observation appears, since the readers did not trip on them",
+        "Genuine reader stumbles from the logs, if any, are quoted as testimony rather than summarized as abstractions",
+        "No rewriting occurs and no scores are given"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "[after a completed run in which S quit at passage 4] ask S what would have kept her past passage 4",
+      "expected_output": "The agent runs scripts/ask.py <run-dir> skeptic \"<question>\", hands the bundle to a fresh subagent, and relays S's answer in her voice, by initial, in under 150 words. She names what would have had to be true (evidence, a number, a shown instance) and does not propose a rewrite.",
+      "expectations": [
+        "The answer comes from a fresh subagent given the ask.py bundle, not from the orchestrator answering for the reader",
+        "The reader answers only from her own reading log and says so if the log cannot support an answer",
+        "The answer is in the first person, by initial, and under 150 words",
+        "The answer names what would have had to be true for the reading to go differently and contains no rewritten sentences or suggested copy"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "[after revising the draft in an editor, in the same project] again",
+      "expected_output": "A re-run on the current draft with the same casts and fresh readers, opening with what changed in reader behavior compared with the prior run, and a page that draws last run's attention strip above this run's.",
+      "expectations": [
+        "The prior run's manifest casts are reused so the comparison is honest; the readers are fresh subagents",
+        "The verdict opens with the behavior change (for example, last time S left at passage 4, this time she finished)",
+        "The annotations carry a previous block pointing at the prior run and the page renders the prior strip above the current one",
+        "No fixes or rewrites are offered"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "quick read: [a 900-word essay pasted inline]",
+      "expected_output": "The sixty-second version: the draft is saved to a file, skim.py produces the scanner view, one skeptical reader decides from that view alone, and the reply is two sentences: what they think the piece is and whether they would open it, with the deciding element quoted.",
+      "expectations": [
+        "Only the skim gate runs; no timed read, recall, or trust ledger",
+        "The scanner reads the skim.py output and never the draft file",
+        "The reply is two sentences plus the quoted element that decided it",
+        "The word contamination is never mentioned to the user"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Would anyone actually read this? evals/first-reader/fixtures/tiny.md, it's a release note for our Discord.",
+      "expected_output": "The under-150-words path: one fresh reader gets the text cold with a persona and a two-second frame; first felt reaction, would they stop scrolling, what they would retell; then the trust ledger. No chunked feed, no recall quiz.",
+      "expectations": [
+        "The agent routes to the short-text path instead of the served feed",
+        "A persona relevant to a Discord release note is cast",
+        "The verdict covers the felt first reaction and what a skimming user retains",
+        "The review stays proportional: short text, short reply"
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Read evals/first-reader/fixtures/config-reference.md like a human and tell me if it flows as an article.",
+      "expected_output": "The agent reframes: reference material is foraged, not read in order. The skim gate becomes the main event with lookup tasks (a reader arrives with a question and the scanner view either routes them to the answer or does not). Skimmability is the success condition.",
+      "expectations": [
+        "No linear timed read is run on reference material",
+        "The skim gate runs with at least one lookup task for a reader who arrives with a specific question",
+        "The agent says in plain words why flowing as an article is the wrong goal for this genre"
+      ]
+    },
+    {
+      "id": 8,
+      "prompt": "Here's my draft. Review it as a reader and then fix the weak parts in my voice.",
+      "expected_output": "The reading happens in full. The rewrite is declined in one sentence, with the readers' comments offered as input to the user's own editing or voice skill.",
+      "expectations": [
+        "The review runs and is delivered per the contract",
+        "The agent does not rewrite any part of the draft and does not hand over a list of suggested fixes",
+        "The refusal is one plain sentence and points to the user's own editing skill with the readers' comments as its input"
+      ]
+    },
+    {
+      "id": 9,
+      "prompt": "[after a completed run] My friend Priya read it and said the middle section lost her and she loved the closing line. Add that.",
+      "expected_output": "Priya's reactions are quoted by name beside the simulated readers' comments as testimony. They are not treated as instructions to change the draft and no rewrite follows.",
+      "expectations": [
+        "The human reader's comments are quoted by name and placed beside the simulated readers' notes",
+        "The comments are treated as evidence about the reading, not as edits to apply",
+        "No rewrite or fix list is produced"
+      ]
+    },
+    {
+      "id": 10,
+      "prompt": "review this [a draft in which nothing survives recall, every sentence is portable, and the trust ledger shows no first-person experience or checkable specifics]",
+      "expected_output": "The verdict says plainly that the readers found nothing only the author could have written, and offers, in one sentence, to interview the author for ten minutes and re-run, per references/interview.md. It never writes the author's experience for them.",
+      "expectations": [
+        "The hollow finding is stated as a finding about the piece, not about the readers",
+        "The interview is offered once, in one sentence, and does not start uninvited",
+        "No line edits or generated material are supplied in place of the author's own experience"
+      ]
+    }
+  ]
+}

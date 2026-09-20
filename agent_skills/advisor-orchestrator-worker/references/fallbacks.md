@@ -18,7 +18,7 @@ api_key="${GEMINI_API_KEY:-$GOOGLE_API_KEY}"
 ( set -o pipefail
   jq -n --rawfile t "$brief" '{contents:[{parts:[{text:$t}]}]}' \
     | curl -sS --fail --max-time 300 \
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent" \
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent" \
       -H "x-goog-api-key: $api_key" -H "Content-Type: application/json" -d @- \
     | jq -r '.candidates[0].content.parts[0].text' > "$out" ) &
 pids+=($!)
@@ -27,14 +27,14 @@ pids+=($!)
 ## Advisor: bare Anthropic API call
 
 Same model as the CLI path. The `fallbacks` parameter re-serves a
-safety-classifier refusal on Opus 4.8 inside the same call, so one
+safety-classifier refusal on Opus 5 inside the same call, so one
 declined consult cannot stall the loop.
 
 ```bash
 [ -n "$ANTHROPIC_API_KEY" ] || { echo "no ANTHROPIC_API_KEY" >&2; exit 1; }
 ( set -o pipefail
-  jq -n --rawfile c "$consult" '{model: "claude-fable-5", max_tokens: 16000,
-      fallbacks: [{model: "claude-opus-4-8"}],
+  jq -n --rawfile c "$consult" '{model: "claude-fable-5-1", max_tokens: 16000,
+      fallbacks: [{model: "claude-opus-5"}],
       messages: [{role: "user", content: $c}]}' \
     | curl -sS --fail --max-time 300 "https://api.anthropic.com/v1/messages" \
       -H "x-api-key: $ANTHROPIC_API_KEY" -H "anthropic-version: 2023-06-01" \

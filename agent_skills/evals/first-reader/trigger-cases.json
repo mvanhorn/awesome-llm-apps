@@ -1,0 +1,96 @@
+{
+  "skill": "first-reader",
+  "purpose": "Trigger behavior spec. CI checks that positive prompts match the skill description more strongly than near-misses.",
+  "cases": [
+    {
+      "id": "human-review",
+      "prompt": "review this draft like a human reader would",
+      "should_trigger": true,
+      "assert": "Runs the reading simulation: skim gate, timed read with transcript, recall, trust ledger, testimony report."
+    },
+    {
+      "id": "hold-attention",
+      "prompt": "does this article hold attention or will people stop reading",
+      "should_trigger": true,
+      "assert": "Reports quit points from persona timed reads rather than judging text properties."
+    },
+    {
+      "id": "hollow-after-deslop",
+      "prompt": "I ran the anti-slop skill and this still feels off and hollow, why",
+      "should_trigger": true,
+      "assert": "Runs the experience-layer review and explains the gap via the recall and trust-ledger results."
+    },
+    {
+      "id": "first-reader-role",
+      "prompt": "be my first reader on this essay before I publish",
+      "should_trigger": true,
+      "assert": "Acts as the final gate: reading report with what landed, quit points, what survived; no rewrites."
+    },
+    {
+      "id": "what-survives",
+      "prompt": "what will someone remember from this piece tomorrow",
+      "should_trigger": true,
+      "assert": "Runs the recall test from the reading log and diffs the retained gist against the intended thesis."
+    },
+    {
+      "id": "beta-readers",
+      "prompt": "get me a couple of beta readers for this essay before it goes out",
+      "should_trigger": true,
+      "assert": "Casts two readers, runs the skim gate and the timed reads, and delivers the friend's report plus the page."
+    },
+    {
+      "id": "quick-read",
+      "prompt": "quick read: would a busy engineer even open this post?",
+      "should_trigger": true,
+      "assert": "Runs only the skim gate: one skeptical scanner, two sentences, the deciding element quoted."
+    },
+    {
+      "id": "where-they-bounce",
+      "prompt": "where do readers bounce in this landing copy and why",
+      "should_trigger": true,
+      "assert": "Reports quit points from the timed reads with the readers' own words, never a fix list."
+    },
+    {
+      "id": "near-miss-deslop",
+      "prompt": "remove the AI slop words and em dashes from this draft",
+      "should_trigger": false,
+      "assert": "Word-level cleanup belongs to an anti-slop or humanizer skill, not the reading simulation."
+    },
+    {
+      "id": "near-miss-humanize",
+      "prompt": "humanize this text so it does not sound like AI",
+      "should_trigger": false,
+      "assert": "Rewriting for tone is out of scope; first-reader never rewrites."
+    },
+    {
+      "id": "near-miss-grammar",
+      "prompt": "fix the grammar and typos in this document",
+      "should_trigger": false,
+      "assert": "Copyediting is not a reading simulation."
+    },
+    {
+      "id": "near-miss-voice-rewrite",
+      "prompt": "rewrite this post in my voice",
+      "should_trigger": false,
+      "assert": "Voice rewriting belongs to the user's own voice or editing skill."
+    },
+    {
+      "id": "near-miss-summarize",
+      "prompt": "summarize this article for me",
+      "should_trigger": false,
+      "assert": "Summarization is a content task, not a review of reader experience."
+    },
+    {
+      "id": "near-miss-write-post",
+      "prompt": "write a blog post about our new caching layer for engineers",
+      "should_trigger": false,
+      "assert": "Drafting is a writing task; first-reader only reads finished drafts."
+    },
+    {
+      "id": "near-miss-seo",
+      "prompt": "check this article for SEO keywords and readability score",
+      "should_trigger": false,
+      "assert": "Scores and keyword audits are text-property checks, which this skill never produces."
+    }
+  ]
+}

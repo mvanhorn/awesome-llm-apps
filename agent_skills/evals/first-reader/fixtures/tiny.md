@@ -1,0 +1,1 @@
+Shipped v2.3 of the exporter tonight. The 90-second cold start is gone: bundle went from 48MB to 9MB after we dropped the bundled Chromium and let it use your local Chrome. One breaking change: --output now defaults to ./dist instead of the cwd. Changelog in the repo. If the new default breaks your CI, pin v2.2 and yell at me.

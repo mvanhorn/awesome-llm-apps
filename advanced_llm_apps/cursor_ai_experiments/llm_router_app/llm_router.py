@@ -41,8 +41,8 @@ if prompt := st.chat_input("What is your message?"):
             model="router-mf-0.11593",
             messages=[{"role": "user", "content": prompt}]
         )
-        message_content = response['choices'][0]['message']['content']
-        model_name = response['model']
+        message_content = response.choices[0].message.content
+        model_name = response.model
         
         # Display assistant's response
         message_placeholder.markdown(message_content)
