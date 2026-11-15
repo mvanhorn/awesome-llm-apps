@@ -1,0 +1,52 @@
+== python3 agent_skills/evals/tools/skill_scanner.py agent_skills
+agent-skill security scan v1.0.0 — 8 skill(s) under agent_skills
+
+=== advisor-orchestrator-worker (agent_skills/advisor-orchestrator-worker) ===
+  clean — no findings
+
+=== api-migration-notes (agent_skills/api-migration-notes) ===
+  clean — no findings
+
+=== commit-archaeologist (agent_skills/commit-archaeologist) ===
+  clean — no findings
+
+=== dependency-doctor (agent_skills/dependency-doctor) ===
+  [INFO] NET01 scripts/dep_doctor.py:386
+      Script makes network calls (python network import), declared via 'compatibility'.
+      > import urllib.parse
+  [INFO] NET01 scripts/dep_doctor.py:387
+      Script makes network calls (python network import), declared via 'compatibility'.
+      > import urllib.request
+  [INFO] NET01 scripts/dep_doctor.py:387
+      Script makes network calls (python network API call), declared via 'compatibility'.
+      > import urllib.request
+  [INFO] NET01 scripts/dep_doctor.py:398
+      Script makes network calls (python network API call), declared via 'compatibility'.
+      > request = urllib.request.Request(url, headers={"User-Agent": "dependency-doctor/1.0"})
+  [INFO] NET01 scripts/dep_doctor.py:400
+      Script makes network calls (python network API call), declared via 'compatibility'.
+      > with urllib.request.urlopen(request, timeout=10) as response:
+
+=== first-reader (agent_skills/first-reader) ===
+  [INFO] NET01 scripts/feed.py:58
+      Script makes network calls (python network import), declared via 'compatibility'.
+      > from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+  [INFO] NET01 scripts/feed.py:60
+      Script makes network calls (python network import), declared via 'compatibility'.
+      > from urllib import request as urlrequest
+  [INFO] NET01 scripts/feed.py:61
+      Script makes network calls (python network import), declared via 'compatibility'.
+      > from urllib.error import HTTPError
+
+=== project-graveyard (agent_skills/project-graveyard) ===
+  clean — no findings
+
+=== scope-creep-detector (agent_skills/scope-creep-detector) ===
+  clean — no findings
+
+=== thinking-out-loud (agent_skills/thinking-out-loud) ===
+  clean — no findings
+
+Summary: 0 CRITICAL, 0 WARN, 8 INFO
+Verdict guidance: no pattern hits. Still read SKILL.md end-to-end — natural-language attacks evade pattern scanners (OWASP AST08).
+exit 0

@@ -1,0 +1,675 @@
+# Real captured command output — api-migration-notes
+# cwd: /workspace
+
+$ python3 agent_skills/api-migration-notes/scripts/oas_diff.py agent_skills/evals/api-migration-notes/fixtures/orders-v1.json agent_skills/evals/api-migration-notes/fixtures/orders-v2.json
+{
+  "old": {
+    "file": "agent_skills/evals/api-migration-notes/fixtures/orders-v1.json",
+    "openapi": "3.0.3",
+    "title": "Orders API",
+    "version": "1.0.0"
+  },
+  "new": {
+    "file": "agent_skills/evals/api-migration-notes/fixtures/orders-v2.json",
+    "openapi": "3.0.3",
+    "title": "Orders API",
+    "version": "2.0.0"
+  },
+  "limits": {
+    "max_ref_depth": 32,
+    "max_nodes": 50000,
+    "max_refs": 2000,
+    "max_file_bytes": 2000000
+  },
+  "warnings": [
+    "cycle: /components/schemas/Node -> /components/schemas/Node -> #/components/schemas/Node"
+  ],
+  "changes": [
+    {
+      "kind": "removed_path",
+      "severity": "breaking",
+      "old_pointer": "/paths/~1health",
+      "new_pointer": null,
+      "summary": "Removed path /health",
+      "details": {
+        "path": "/health"
+      },
+      "id": "BRK-001"
+    },
+    {
+      "kind": "removed_operation",
+      "severity": "breaking",
+      "old_pointer": "/paths/~1orders~1{orderId}/delete",
+      "new_pointer": null,
+      "summary": "Removed operation DELETE /orders/{orderId}",
+      "details": {
+        "path": "/orders/{orderId}",
+        "method": "delete"
+      },
+      "id": "BRK-002"
+    },
+    {
+      "kind": "removed_response_field",
+      "severity": "breaking",
+      "old_pointer": "/components/schemas/Order/properties/note",
+      "new_pointer": null,
+      "summary": "Response field note was removed",
+      "details": {
+        "name": "note",
+        "role": "response"
+      },
+      "id": "BRK-003"
+    },
+    {
+      "kind": "renamed_response_field",
+      "severity": "breaking",
+      "old_pointer": "/components/schemas/Customer/properties/name",
+      "new_pointer": "/components/schemas/Customer/properties/displayName",
+      "summary": "Response field name renamed to displayName",
+      "details": {
+        "from": "name",
+        "to": "displayName",
+        "role": "response"
+      },
+      "id": "BRK-004"
+    },
+    {
+      "kind": "request_field_required",
+      "severity": "breaking",
+      "old_pointer": "/components/schemas/CreateOrder/properties/quantity",
+      "new_pointer": "/components/schemas/CreateOrder/properties/quantity",
+      "summary": "Request field quantity is now required",
+      "details": {
+        "name": "quantity",
+        "role": "request"
+      },
+      "id": "BRK-005"
+    },
+    {
+      "kind": "type_narrowing",
+      "severity": "breaking",
+      "old_pointer": "/components/schemas/Order/properties/total",
+      "new_pointer": "/components/schemas/Order/properties/total",
+      "summary": "Type changed from ['number'] to ['integer']",
+      "details": {
+        "old_type": [
+          "number"
+        ],
+        "new_type": [
+          "integer"
+        ],
+        "role": "response"
+      },
+      "id": "BRK-006"
+    },
+    {
+      "kind": "format_narrowing",
+      "severity": "breaking",
+      "old_pointer": "/components/schemas/Order/properties/total",
+      "new_pointer": "/components/schemas/Order/properties/total",
+      "summary": "Format changed from double to int64",
+      "details": {
+        "old_format": "double",
+        "new_format": "int64",
+        "role": "response"
+      },
+      "id": "BRK-007"
+    },
+    {
+      "kind": "format_narrowing",
+      "severity": "breaking",
+      "old_pointer": "/paths/~1orders~1{orderId}/get/parameters/0/schema",
+      "new_pointer": "/paths/~1orders~1{orderId}/get/parameters/0/schema",
+      "summary": "Format changed from (none) to uuid",
+      "details": {
+        "old_format": null,
+        "new_format": "uuid",
+        "role": "request"
+      },
+      "id": "BRK-008"
+    },
+    {
+      "kind": "enum_narrowing",
+      "severity": "breaking",
+      "old_pointer": "/components/schemas/Order/properties/status",
+      "new_pointer": "/components/schemas/Order/properties/status",
+      "summary": "Enum lost 1 value(s)",
+      "details": {
+        "removed": [
+          "cancelled"
+        ],
+        "role": "response"
+      },
+      "id": "BRK-009"
+    },
+    {
+      "kind": "parameter_location_change",
+      "severity": "breaking",
+      "old_pointer": "/paths/~1orders/get/parameters/0",
+      "new_pointer": "/paths/~1orders/get/parameters/0",
+      "summary": "Parameter status moved from query to header on GET /orders",
+      "details": {
+        "name": "status",
+        "old_in": "query",
+        "new_in": "header",
+        "path": "/orders",
+        "method": "get"
+      },
+      "id": "BRK-010"
+    },
+    {
+      "kind": "auth_scheme_change",
+      "severity": "breaking",
+      "old_pointer": null,
+      "new_pointer": "/security",
+      "summary": "Global security now requires bearerAuth",
+      "details": {
+        "added": [
+          "bearerAuth"
+        ]
+      },
+      "id": "BRK-011"
+    },
+    {
+      "kind": "auth_scheme_change",
+      "severity": "breaking",
+      "old_pointer": "/security",
+      "new_pointer": "/security",
+      "summary": "Operation GET /orders now requires bearerAuth",
+      "details": {
+        "added": [
+          "bearerAuth"
+        ],
+        "path": "/orders",
+        "method": "get"
+      },
+      "id": "BRK-012"
+    },
+    {
+      "kind": "auth_scheme_change",
+      "severity": "breaking",
+      "old_pointer": "/security",
+      "new_pointer": "/security",
+      "summary": "Operation GET /orders/{orderId} now requires bearerAuth",
+      "details": {
+        "added": [
+          "bearerAuth"
+        ],
+        "path": "/orders/{orderId}",
+        "method": "get"
+      },
+      "id": "BRK-013"
+    },
+    {
+      "kind": "auth_scheme_change",
+      "severity": "breaking",
+      "old_pointer": "/security",
+      "new_pointer": "/security",
+      "summary": "Operation GET /tree now requires bearerAuth",
+      "details": {
+        "added": [
+          "bearerAuth"
+        ],
+        "path": "/tree",
+        "method": "get"
+      },
+      "id": "BRK-014"
+    },
+    {
+      "kind": "auth_scheme_change",
+      "severity": "breaking",
+      "old_pointer": "/security",
+      "new_pointer": "/security",
+      "summary": "Operation POST /orders now requires bearerAuth",
+      "details": {
+        "added": [
+          "bearerAuth"
+        ],
+        "path": "/orders",
+        "method": "post"
+      },
+      "id": "BRK-015"
+    },
+    {
+      "kind": "status_code_removed",
+      "severity": "breaking",
+      "old_pointer": "/paths/~1orders/get/responses/400",
+      "new_pointer": null,
+      "summary": "Removed status 400 from GET /orders",
+      "details": {
+        "status": "400",
+        "path": "/orders",
+        "method": "get"
+      },
+      "id": "BRK-016"
+    },
+    {
+      "kind": "deprecated",
+      "severity": "deprecation",
+      "old_pointer": "/paths/~1orders/get",
+      "new_pointer": "/paths/~1orders/get",
+      "summary": "Operation GET /orders is now deprecated",
+      "details": {
+        "path": "/orders",
+        "method": "get"
+      },
+      "id": "DEP-001"
+    },
+    {
+      "kind": "new_optional_field",
+      "severity": "additive",
+      "old_pointer": null,
+      "new_pointer": "/components/schemas/Order/properties/shippedAt",
+      "summary": "New optional response field shippedAt",
+      "details": {
+        "name": "shippedAt",
+        "role": "response"
+      },
+      "id": "ADD-001"
+    },
+    {
+      "kind": "new_endpoint",
+      "severity": "additive",
+      "old_pointer": null,
+      "new_pointer": "/paths/~1invoices",
+      "summary": "New path /invoices (get)",
+      "details": {
+        "path": "/invoices",
+        "methods": [
+          "get"
+        ]
+      },
+      "id": "ADD-002"
+    },
+    {
+      "kind": "enum_widening",
+      "severity": "additive",
+      "old_pointer": "/components/schemas/CreateOrder/properties/channel",
+      "new_pointer": "/components/schemas/CreateOrder/properties/channel",
+      "summary": "Enum gained 1 value(s)",
+      "details": {
+        "added": [
+          "phone"
+        ],
+        "role": "request"
+      },
+      "id": "ADD-003"
+    }
+  ],
+  "summary": {
+    "breaking": 16,
+    "additive": 3,
+    "deprecation": 1
+  }
+}
+exit 0
+
+$ python3 agent_skills/api-migration-notes/scripts/check_notes.py /tmp/api-mig-demo/draft.md /tmp/api-mig-demo/changes.json
+FAIL: migration notes do not cover the differ output
+uncovered: BRK-016
+unknown: (none)
+missing_examples: (none)
+covered 15/16 breaking changes
+exit 1
+
+$ python3 agent_skills/api-migration-notes/scripts/check_notes.py /tmp/api-mig-demo/notes.md /tmp/api-mig-demo/changes.json
+PASS: 16/16 breaking changes covered, 0 unknown ids, 0 missing examples
+exit 0
+
+$ cat notes.md
+# Migration notes: Orders API 1.0.0 → 2.0.0
+
+orders-v1.json → orders-v2.json
+
+Breaking: 16. Additive: 3. Deprecations: 1.
+
+These notes are for HTTP API consumers. Each breaking change from the differ is a section below.
+
+## [BRK-001] Removed path /health
+<!-- change: BRK-001 -->
+
+**Who is affected:** Clients that probe GET /health.
+
+**What breaks:** Removed path /health
+
+**What to change:** Stop calling /health; there is no replacement path in 2.0.0.
+
+### Before
+
+```http
+GET /health HTTP/1.1
+```
+
+### After
+
+```http
+GET /health HTTP/1.1
+HTTP/1.1 404 Not Found
+```
+
+## [BRK-002] Removed operation DELETE /orders/{orderId}
+<!-- change: BRK-002 -->
+
+**Who is affected:** Clients that call DELETE /orders/{orderId}.
+
+**What breaks:** Removed operation DELETE /orders/{orderId}
+
+**What to change:** Remove DELETE /orders/{orderId} from the client. The method is gone.
+
+### Before
+
+```http
+DELETE /orders/ord_123 HTTP/1.1
+```
+
+### After
+
+```http
+DELETE /orders/ord_123 HTTP/1.1
+HTTP/1.1 404 Not Found
+```
+
+## [BRK-003] Response field note was removed
+<!-- change: BRK-003 -->
+
+**Who is affected:** Clients that read Order.note from list, get, or create responses.
+
+**What breaks:** Response field note was removed
+
+**What to change:** Stop reading note from Order responses; persist notes client-side if still needed.
+
+### Before
+
+```http
+{"id":"ord_123","status":"open","note":"leave at door","total":19.5}
+```
+
+### After
+
+```http
+{"id":"ord_123","status":"open","total":20}
+```
+
+## [BRK-004] Response field name renamed to displayName
+<!-- change: BRK-004 -->
+
+**Who is affected:** Clients that read customer.name on an Order.
+
+**What breaks:** Response field name renamed to displayName
+
+**What to change:** Read customer.displayName instead of customer.name.
+
+### Before
+
+```http
+{"email":"a@example.com","name":"Ada"}
+```
+
+### After
+
+```http
+{"email":"a@example.com","displayName":"Ada"}
+```
+
+## [BRK-005] Request field quantity is now required
+<!-- change: BRK-005 -->
+
+**Who is affected:** Clients that POST /orders without quantity.
+
+**What breaks:** Request field quantity is now required
+
+**What to change:** Always send quantity on POST /orders.
+
+### Before
+
+```http
+POST /orders
+{"sku":"SKU-1"}
+```
+
+### After
+
+```http
+POST /orders
+{"sku":"SKU-1","quantity":1}
+```
+
+## [BRK-006] Type changed from ['number'] to ['integer']
+<!-- change: BRK-006 -->
+
+**Who is affected:** Clients that treat Order.total as a JSON number that may be fractional.
+
+**What breaks:** Type changed from ['number'] to ['integer']
+
+**What to change:** Parse total as an integer. Fractional totals are rejected.
+
+### Before
+
+```http
+{"total":19.5}
+```
+
+### After
+
+```http
+{"total":20}
+```
+
+## [BRK-007] Format changed from double to int64
+<!-- change: BRK-007 -->
+
+**Who is affected:** Clients that assume Order.total uses format double.
+
+**What breaks:** Format changed from double to int64
+
+**What to change:** Accept int64 totals; do not require a floating format.
+
+### Before
+
+```http
+{"total":19.50}
+```
+
+### After
+
+```http
+{"total":20}
+```
+
+## [BRK-008] Format changed from (none) to uuid
+<!-- change: BRK-008 -->
+
+**Who is affected:** Clients that pass opaque orderId strings that are not UUIDs.
+
+**What breaks:** Format changed from (none) to uuid
+
+**What to change:** Send orderId as a UUID.
+
+### Before
+
+```http
+GET /orders/ord_123
+```
+
+### After
+
+```http
+GET /orders/550e8400-e29b-41d4-a716-446655440000
+```
+
+## [BRK-009] Enum lost 1 value(s)
+<!-- change: BRK-009 -->
+
+**Who is affected:** Clients that send or expect status=cancelled.
+
+**What breaks:** Enum lost 1 value(s)
+
+**What to change:** Stop sending cancelled. Use open, paid, or shipped only.
+
+### Before
+
+```http
+{"status":"cancelled"}
+```
+
+### After
+
+```http
+{"status":"open"}
+```
+
+## [BRK-010] Parameter status moved from query to header on GET /orders
+<!-- change: BRK-010 -->
+
+**Who is affected:** Clients that pass status as a query parameter on GET /orders.
+
+**What breaks:** Parameter status moved from query to header on GET /orders
+
+**What to change:** Move status from the query string to the status request header.
+
+### Before
+
+```http
+GET /orders?status=open
+```
+
+### After
+
+```http
+GET /orders
+status: open
+```
+
+## [BRK-011] Global security now requires bearerAuth
+<!-- change: BRK-011 -->
+
+**Who is affected:** Every caller: root security now requires bearerAuth.
+
+**What breaks:** Global security now requires bearerAuth
+
+**What to change:** Send Authorization: Bearer <jwt> on every call.
+
+### Before
+
+```http
+POST /orders
+```
+
+### After
+
+```http
+POST /orders
+Authorization: Bearer <jwt>
+```
+
+## [BRK-012] Operation GET /orders now requires bearerAuth
+<!-- change: BRK-012 -->
+
+**Who is affected:** Clients that call GET /orders without a bearer token.
+
+**What breaks:** Operation GET /orders now requires bearerAuth
+
+**What to change:** Add the bearer header to GET /orders.
+
+### Before
+
+```http
+GET /orders
+```
+
+### After
+
+```http
+GET /orders
+Authorization: Bearer <jwt>
+```
+
+## [BRK-013] Operation GET /orders/{orderId} now requires bearerAuth
+<!-- change: BRK-013 -->
+
+**Who is affected:** Clients that call GET /orders/{orderId} without a bearer token.
+
+**What breaks:** Operation GET /orders/{orderId} now requires bearerAuth
+
+**What to change:** Add the bearer header to GET /orders/{orderId}.
+
+### Before
+
+```http
+GET /orders/ord_123
+```
+
+### After
+
+```http
+GET /orders/ord_123
+Authorization: Bearer <jwt>
+```
+
+## [BRK-014] Operation GET /tree now requires bearerAuth
+<!-- change: BRK-014 -->
+
+**Who is affected:** Clients that call GET /tree without a bearer token.
+
+**What breaks:** Operation GET /tree now requires bearerAuth
+
+**What to change:** Add the bearer header to GET /tree.
+
+### Before
+
+```http
+GET /tree
+```
+
+### After
+
+```http
+GET /tree
+Authorization: Bearer <jwt>
+```
+
+## [BRK-015] Operation POST /orders now requires bearerAuth
+<!-- change: BRK-015 -->
+
+**Who is affected:** Clients that POST /orders without a bearer token.
+
+**What breaks:** Operation POST /orders now requires bearerAuth
+
+**What to change:** Add the bearer header to POST /orders.
+
+### Before
+
+```http
+POST /orders
+```
+
+### After
+
+```http
+POST /orders
+Authorization: Bearer <jwt>
+```
+
+## [BRK-016] Removed status 400 from GET /orders
+<!-- change: BRK-016 -->
+
+**Who is affected:** Clients that depend on HTTP 400 from GET /orders.
+
+**What breaks:** Removed status 400 from GET /orders
+
+**What to change:** Handle the default error document instead of a dedicated 400 status.
+
+### Before
+
+```http
+GET /orders with invalid status -> 400
+```
+
+### After
+
+```http
+GET /orders with invalid status -> default error document
+```
+
+exit 0
+

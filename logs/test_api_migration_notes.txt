@@ -1,0 +1,61 @@
+== python3 agent_skills/evals/api-migration-notes/test_api_migration_notes.py
+orders fixture classifications:
+  PASS differ exits 0
+  PASS stdout is JSON
+  PASS breaking count > 0
+  PASS removed_path /health
+  PASS path pointer encodes the leading slash
+  PASS removed_operation DELETE
+  PASS removed_response_field note
+  PASS renamed_response_field name -> displayName
+  PASS request_field_required quantity
+  PASS type_narrowing total
+  PASS format_narrowing present
+  PASS enum_narrowing present
+  PASS enum_widening present
+  PASS parameter_location_change status
+  PASS auth_scheme_change present
+  PASS status_code_removed 400
+  PASS new_optional_field shippedAt
+  PASS new_endpoint /invoices
+  PASS deprecated present
+  PASS cycle warning emitted
+  PASS ids are unique
+  PASS breaking ids use BRK prefix
+
+local $ref resolution:
+  PASS property removed via $ref uses component pointer
+
+allOf $ref merge:
+  PASS allOf merged required field is detected
+
+enum narrowing vs widening, required-ness:
+  PASS enum widening is additive
+  PASS no enum narrowing on widening-only
+  PASS existing field newly required
+  PASS enum narrowing is breaking
+
+cycles and caps:
+  PASS cycle does not hang
+  PASS cycle warns
+  PASS ref depth cap warns
+  PASS node cap warns
+
+checker:
+  PASS fixture produced breaking records
+  PASS complete notes exit 0
+  PASS complete notes say PASS
+  PASS missing id exits 1
+  PASS missing id is listed
+  PASS unknown id exits 1
+  PASS unknown id is listed
+  PASS missing examples exit 1
+  PASS missing_examples listed
+  PASS checker usage exits 2
+
+YAML input:
+  PASS YAML input exits 2
+  PASS YAML error mentions convert
+
+PASS: 44/44 checks
+exit 0

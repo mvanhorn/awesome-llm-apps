@@ -1,0 +1,12 @@
+== python3 agent_skills/evals/tools/test_registry_lint.py
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.010s
+
+OK
+exit 0
+
+== python3 agent_skills/evals/tools/registry_lint.py --check
+Checking registry at /workspace (mode=check)
+  PASS — 0 error(s), 0 warning(s)
+exit 0

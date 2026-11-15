@@ -1,0 +1,25 @@
+== lint every skill --strict (skill-evals.yml lint job)
+== agent_skills/advisor-orchestrator-worker
+Linting /workspace/agent_skills/advisor-orchestrator-worker (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+== agent_skills/api-migration-notes
+Linting /workspace/agent_skills/api-migration-notes (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+== agent_skills/commit-archaeologist
+Linting /workspace/agent_skills/commit-archaeologist (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+== agent_skills/dependency-doctor
+Linting /workspace/agent_skills/dependency-doctor (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+== agent_skills/first-reader
+Linting /workspace/agent_skills/first-reader (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+== agent_skills/project-graveyard
+Linting /workspace/agent_skills/project-graveyard (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+== agent_skills/scope-creep-detector
+Linting /workspace/agent_skills/scope-creep-detector (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+== agent_skills/thinking-out-loud
+Linting /workspace/agent_skills/thinking-out-loud (strict=on)
+  PASS — 0 error(s), 0 warning(s)

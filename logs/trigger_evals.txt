@@ -1,0 +1,12 @@
+== python3 agent_skills/evals/tools/run_trigger_evals.py
+PASS  advisor-orchestrator-worker: 3 positives clear 3 near-misses (weakest 2.02 vs strongest 1.51)
+PASS  api-migration-notes: 4 positives clear 5 near-misses (weakest 1.79 vs strongest 0.71)
+PASS  commit-archaeologist: 3 positives clear 3 near-misses (weakest 1.73 vs strongest 0.89)
+PASS  dependency-doctor: 3 positives clear 3 near-misses (weakest 1.50 vs strongest 1.15)
+PASS  first-reader: 8 positives clear 7 near-misses (weakest 1.51 vs strongest 0.89)
+PASS  project-graveyard: 3 positives clear 3 near-misses (weakest 1.63 vs strongest 0.76)
+PASS  scope-creep-detector: 3 positives clear 3 near-misses (weakest 1.00 vs strongest 0.00)
+PASS  thinking-out-loud: 4 positives clear 3 near-misses (weakest 1.15 vs strongest 0.32)
+
+trigger & routing: all clear (8 skills)
+exit 0

@@ -1,0 +1,266 @@
+== every agent_skills/evals/*/test_*.py
+== agent_skills/evals/api-migration-notes/test_api_migration_notes.py
+orders fixture classifications:
+  PASS differ exits 0
+  PASS stdout is JSON
+  PASS breaking count > 0
+  PASS removed_path /health
+  PASS path pointer encodes the leading slash
+  PASS removed_operation DELETE
+  PASS removed_response_field note
+  PASS renamed_response_field name -> displayName
+  PASS request_field_required quantity
+  PASS type_narrowing total
+  PASS format_narrowing present
+  PASS enum_narrowing present
+  PASS enum_widening present
+  PASS parameter_location_change status
+  PASS auth_scheme_change present
+  PASS status_code_removed 400
+  PASS new_optional_field shippedAt
+  PASS new_endpoint /invoices
+  PASS deprecated present
+  PASS cycle warning emitted
+  PASS ids are unique
+  PASS breaking ids use BRK prefix
+
+local $ref resolution:
+  PASS property removed via $ref uses component pointer
+
+allOf $ref merge:
+  PASS allOf merged required field is detected
+
+enum narrowing vs widening, required-ness:
+  PASS enum widening is additive
+  PASS no enum narrowing on widening-only
+  PASS existing field newly required
+  PASS enum narrowing is breaking
+
+cycles and caps:
+  PASS cycle does not hang
+  PASS cycle warns
+  PASS ref depth cap warns
+  PASS node cap warns
+
+checker:
+  PASS fixture produced breaking records
+  PASS complete notes exit 0
+  PASS complete notes say PASS
+  PASS missing id exits 1
+  PASS missing id is listed
+  PASS unknown id exits 1
+  PASS unknown id is listed
+  PASS missing examples exit 1
+  PASS missing_examples listed
+  PASS checker usage exits 2
+
+YAML input:
+  PASS YAML input exits 2
+  PASS YAML error mentions convert
+
+PASS: 44/44 checks
+== agent_skills/evals/commit-archaeologist/test_archaeologist.py
+line-range report:
+  PASS script exits cleanly
+  PASS region identifies the requested lines
+  PASS introducing commit is the first commit
+  PASS timeline is oldest to newest
+  PASS commit categories follow message intent
+  PASS helper is detected as a repeated co-change
+  PASS one-off neighboring files stay below the threshold
+  PASS single-commit history has no repeated co-changes
+  PASS workaround signal is present
+  PASS temporary signal is present
+  PASS issue reference signal is present
+  PASS blame authorship is summarized
+  PASS JSON output is deterministic
+file-wide rename and error behavior:
+  PASS file-wide mode exits cleanly
+  PASS file-wide mode uses follow history
+  PASS a target's old name is not reported as a co-change
+  PASS invalid line range fails
+  PASS invalid line range explains the problem without a traceback
+quoted filenames:
+  PASS unicode: report exits cleanly
+  PASS unicode: changed files preserve literal names
+  PASS unicode: rename preserves both paths
+  PASS unicode: historical aliases include the original name
+  PASS unicode: only the companion is a repeated co-change
+  PASS control-characters: report exits cleanly
+  PASS control-characters: changed files preserve literal names
+  PASS control-characters: rename preserves both paths
+  PASS control-characters: historical aliases include the original name
+  PASS control-characters: only the companion is a repeated co-change
+
+PASS - 28/28 checks
+== agent_skills/evals/dependency-doctor/test_dep_doctor.py
+dependency-doctor eval:
+  PASS requirements.txt exits successfully
+  PASS report names the input file
+  PASS abandoned-backport classifies pathlib
+  PASS abandoned-backport severity is high
+  PASS abandoned-backport has a source line
+  PASS abandoned-backport explains why
+  PASS abandoned-backport suggests a fix
+  PASS known backports do not also produce stdlib-shadowing findings
+  PASS abandoned-backport classifies enum34
+  PASS abandoned-backport severity is high
+  PASS abandoned-backport has a source line
+  PASS abandoned-backport explains why
+  PASS abandoned-backport suggests a fix
+  PASS unpinned classifies requests
+  PASS unpinned severity is medium
+  PASS unpinned has a source line
+  PASS unpinned explains why
+  PASS unpinned suggests a fix
+  PASS duplicate-constraint classifies requests
+  PASS duplicate-constraint severity is medium
+  PASS duplicate-constraint has a source line
+  PASS duplicate-constraint explains why
+  PASS duplicate-constraint suggests a fix
+  PASS conflicting-constraints classifies urllib3
+  PASS conflicting-constraints severity is high
+  PASS conflicting-constraints has a source line
+  PASS conflicting-constraints explains why
+  PASS conflicting-constraints suggests a fix
+  PASS every finding follows the JSON contract
+  PASS summary total matches findings
+  PASS offline mode is recorded
+  PASS requirements directives are ignored
+  PASS pyproject.toml exits successfully
+  PASS abandoned-backport classifies typing
+  PASS abandoned-backport severity is high
+  PASS abandoned-backport has a source line
+  PASS abandoned-backport explains why
+  PASS abandoned-backport suggests a fix
+  PASS unpinned classifies httpx
+  PASS unpinned severity is medium
+  PASS unpinned has a source line
+  PASS unpinned explains why
+  PASS unpinned suggests a fix
+  PASS Poetry range is treated as a constraint
+  PASS unpinned classifies dataclasses
+  PASS unpinned severity is medium
+  PASS unpinned has a source line
+  PASS unpinned explains why
+  PASS unpinned suggests a fix
+  PASS Poetry backports produce one root-cause finding
+  PASS guarded-requirements.txt exits successfully
+  PASS inactive Python-version backport marker is respected
+  PASS platform-requirements.txt exits successfully
+  PASS platform-split pins are not conflicts
+  PASS conflicting-constraints classifies requests
+  PASS conflicting-constraints severity is high
+  PASS conflicting-constraints has a source line
+  PASS conflicting-constraints explains why
+  PASS conflicting-constraints suggests a fix
+  PASS url-requirements.txt exits successfully
+  PASS URL schemes are not read as package names
+  PASS distinct URL requirements are not duplicates
+  PASS package.json exits successfully
+  PASS unpinned classifies left-pad
+  PASS unpinned severity is medium
+  PASS unpinned has a source line
+  PASS unpinned explains why
+  PASS unpinned suggests a fix
+  PASS exact npm version is not called unpinned
+
+PASS: 69/69 checks
+== agent_skills/evals/first-reader/test_first_reader.py
+[ok] skim withholds most of the text
+[ok] skim shows heading
+[ok] skim surfaces fixation numbers
+[ok] skim states read time and screens
+[ok] hollow fixture is ~fully portable
+[ok] hollow fixture pays no costly signals
+[ok] human fixture is mostly non-portable
+[ok] human fixture pays costly signals
+[ok] unit-bearing specifics counted (v2.3, 48MB class)
+[ok] feed shows chunk 1 only
+[ok] feed shows remaining budget
+[ok] feed withholds later chunks
+[ok] feed refuses trivial log entries
+[ok] feed releases chunk 2 after a real log
+[ok] transcript records quit point
+[ok] recall bundle contains quiz and log
+[ok] recall bundle withholds unread draft text
+[ok] served: nothing of the piece on disk before reading
+[ok] served: start shows passage 1 only
+[ok] served: a second start re-shows, never advances
+[ok] served: advancing faster than a person could read is refused
+[ok] served: after the dwell floor the next passage is released
+[ok] served: still nothing on disk while another reader is unfinished
+[ok] served: an unknown token gets nothing
+[ok] served: close writes state.json in the layout room.py expects
+[ok] served: transcript reads back from the closed run
+[ok] oversized paragraphs are split into beats
+[ok] room renders every passage
+[ok] room renders the quit fold line
+[ok] room marks passages the quitter never saw
+[ok] room parses needles from raw logs
+[ok] room is a report: nothing to send, no notes channel
+[ok] room hides lenses that lack data
+[ok] room auto-excerpts strip the needle prefix
+[ok] annotations add the memory lens and flags
+[ok] annotations set the verdict
+[ok] ask: the bundle carries the reader's persona, log, and the question
+[ok] ask: the bundle never carries the draft
+[ok] ask: readers may not propose rewrites
+[ok] ask: the skimmer answers from their decision alone
+[ok] ask: 'all' bundles every reader and the skimmer
+[ok] ask: an unknown reader is an error, not an invention
+[ok] page: the skimmer's verdict is on the page
+[ok] page: the author is told the readers can be consulted
+[ok] page: no suggested fixes anywhere
+[ok] re-run page draws last time's strip above this time's
+[ok] re-run page states what changed
+
+all first-reader script tests passed
+== agent_skills/evals/project-graveyard/test_graveyard.py
+classification:
+  PASS census separates alive/finished/dead
+  PASS shipped-tool is finished, not eulogized
+  PASS almost-shipped died of deploy fear
+  PASS pay-wall died at the payments wall
+  PASS boiler-death: shiny object takes precedence
+  PASS kill-chain names the killer
+  PASS config ratio is sane (<=100%)
+  PASS unversioned folder counted, not autopsied
+redaction:
+  PASS names are redacted
+  PASS kill-chain survives redaction
+state and relapse:
+  PASS state records the scan
+  PASS state includes finished (necromancer needs it)
+  PASS resurrection is recorded
+  PASS relapse is detected and named
+json report:
+  PASS report has alive/finished/dead keys
+  PASS dead entries carry causes and pulse
+
+PASS — 16/16 checks
+== agent_skills/evals/scope-creep-detector/test_scope_creep.py
+scope classification:
+  PASS script exits successfully
+  PASS stdout is valid JSON
+  PASS parser fix is in scope
+  PASS CI edit is likely creep
+  PASS CI edit is classified as config
+  PASS new dependency is detected
+  PASS package.json dependency is detected
+  PASS pyproject dependency is detected
+  PASS git textconv command is not executed
+  PASS dependency file is likely creep
+  PASS public API rename is detected
+  PASS private helper rename is ignored
+  PASS formatting-only file is detected
+  PASS oversized hunk is detected
+  PASS plain unified diff without git headers is parsed
+
+PASS: 15/15 checks
+== agent_skills/evals/tools/test_registry_lint.py
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.010s
+
+OK

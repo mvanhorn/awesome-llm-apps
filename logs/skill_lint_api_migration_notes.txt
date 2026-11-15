@@ -1,0 +1,4 @@
+== python3 agent_skills/evals/tools/skill_lint.py agent_skills/api-migration-notes --strict
+Linting /workspace/agent_skills/api-migration-notes (strict=on)
+  PASS — 0 error(s), 0 warning(s)
+exit 0
