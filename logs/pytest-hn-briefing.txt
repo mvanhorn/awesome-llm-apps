@@ -1,0 +1,26 @@
+.........                                                                [100%]
+=============================== warnings summary ===============================
+../../tmp/page-watch-venv/lib/python3.12/site-packages/starlette/testclient.py:37
+  /tmp/page-watch-venv/lib/python3.12/site-packages/starlette/testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+../../tmp/page-watch-venv/lib/python3.12/site-packages/google/cloud/aiplatform/models.py:52
+  /tmp/page-watch-venv/lib/python3.12/site-packages/google/cloud/aiplatform/models.py:52: FutureWarning: Support for google-cloud-storage < 3.0.0 will be removed in a future version of google-cloud-aiplatform. Please upgrade to google-cloud-storage >= 3.0.0.
+    from google.cloud.aiplatform.utils import gcs_utils
+
+../../tmp/page-watch-venv/lib/python3.12/site-packages/google/adk/memory/vertex_ai_rag_memory_service.py:27
+  /tmp/page-watch-venv/lib/python3.12/site-packages/google/adk/memory/vertex_ai_rag_memory_service.py:27: UserWarning: The `vertexai.preview.rag` module is deprecated and will be removed in a future version. Please migrate to the `agentplatform` client. For example:
+  
+      import agentplatform
+  
+      client = agentplatform.Client(project="your-project", location="us-central1")
+      client.rag.create_corpus(...)
+  
+    from vertexai.preview import rag
+
+../../tmp/page-watch-venv/lib/python3.12/site-packages/vertexai/_genai/types/common.py:1855
+  /tmp/page-watch-venv/lib/python3.12/site-packages/vertexai/_genai/types/common.py:1855: PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://pydantic.dev/docs/validation/2.14/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+    @model_validator(mode="after")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+9 passed, 4 warnings in 2.95s

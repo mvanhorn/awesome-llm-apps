@@ -1,0 +1,161 @@
+{
+  "dry_run": true,
+  "delivery": {
+    "attempted": false,
+    "sent": false,
+    "status": "dry_run",
+    "detail": "Set dry_run=false to use configured Gmail or webhook delivery."
+  },
+  "brief": {
+    "generated_at": "2026-11-15T17:51:31+00:00",
+    "watch_mode": "sample",
+    "watchlist_path": "deterministic sample pages",
+    "subject": "Page Watch brief - 2026-11-15",
+    "text": "Page Watch Brief\nGenerated: 2026-11-15T17:51:31+00:00\nWatch list: deterministic sample pages\nWatch mode: sample\nJudge mode: sample\nPages checked: 3\n\nChanges that need attention:\n\nAcme Cloud Pricing\nURL: https://example.invalid/pricing\n- material: The Pro plan monthly price increased from $29 to $49.\n  Impact: pricing\n  Pre-filter: likely_material (numeric:$29->$49)\n  Source: sample\n  Before: The Pro plan is $29 per month.\n  After: The Pro plan is $49 per month.\n- material: The Pro plan rate limit dropped from 100 to 60 requests per minute.\n  Impact: limits\n  Pre-filter: likely_material (keyword:limit, numeric:100->60)\n  Source: sample\n  Before: The Pro plan includes a rate limit of 100 requests per minute.\n  After: The Pro plan includes a rate limit of 60 requests per minute.\n\nAcme API Docs\nURL: https://example.invalid/docs\n- No material change.\n\nAcme Terms of Service\nURL: https://example.invalid/terms\n- material: A new clause sends disputes to binding arbitration in Delaware and waives class actions.\n  Impact: legal\n  Pre-filter: likely_material (keyword:arbitration)\n  Source: sample\n  Before: (none)\n  After: Disputes are resolved by binding arbitration in Delaware. Class actions are waived.",
+    "html": "<h2>Page Watch Brief</h2>\n<p><strong>Generated:</strong> 2026-11-15T17:51:31+00:00<br>\n<strong>Watch list:</strong> deterministic sample pages<br>\n<strong>Watch mode:</strong> sample<br>\n<strong>Judge mode:</strong> sample<br>\n<strong>Pages checked:</strong> 3</p>\n<h3>Acme Cloud Pricing</h3>\n<p><a href=\"https://example.invalid/pricing\">https://example.invalid/pricing</a></p>\n<ul>\n<li>\n<strong>material: The Pro plan monthly price increased from $29 to $49.</strong>\n<p><strong>Impact:</strong> pricing<br>\n<strong>Pre-filter:</strong> likely_material (numeric:$29-&gt;$49)<br>\n<strong>Source:</strong> sample</p>\n<p><strong>Before:</strong> The Pro plan is $29 per month.<br>\n<strong>After:</strong> The Pro plan is $49 per month.</p>\n</li>\n<li>\n<strong>material: The Pro plan rate limit dropped from 100 to 60 requests per minute.</strong>\n<p><strong>Impact:</strong> limits<br>\n<strong>Pre-filter:</strong> likely_material (keyword:limit, numeric:100-&gt;60)<br>\n<strong>Source:</strong> sample</p>\n<p><strong>Before:</strong> The Pro plan includes a rate limit of 100 requests per minute.<br>\n<strong>After:</strong> The Pro plan includes a rate limit of 60 requests per minute.</p>\n</li>\n</ul>\n<h3>Acme API Docs</h3>\n<p><a href=\"https://example.invalid/docs\">https://example.invalid/docs</a></p>\n<p>No material change.</p>\n<h3>Acme Terms of Service</h3>\n<p><a href=\"https://example.invalid/terms\">https://example.invalid/terms</a></p>\n<ul>\n<li>\n<strong>material: A new clause sends disputes to binding arbitration in Delaware and waives class actions.</strong>\n<p><strong>Impact:</strong> legal<br>\n<strong>Pre-filter:</strong> likely_material (keyword:arbitration)<br>\n<strong>Source:</strong> sample</p>\n<p><strong>Before:</strong> (none)<br>\n<strong>After:</strong> Disputes are resolved by binding arbitration in Delaware. Class actions are waived.</p>\n</li>\n</ul>",
+    "pages": [
+      {
+        "name": "Acme Cloud Pricing",
+        "url": "https://example.invalid/pricing",
+        "status": "material",
+        "note": "",
+        "hunks": [
+          {
+            "hunk_id": "hunk-d40c44e5365a",
+            "kind": "changed",
+            "before": "The Pro plan is $29 per month.",
+            "after": "The Pro plan is $49 per month.",
+            "page_name": "Acme Cloud Pricing",
+            "page_url": "https://example.invalid/pricing"
+          },
+          {
+            "hunk_id": "hunk-f0e44dc0e9ca",
+            "kind": "changed",
+            "before": "The Pro plan includes a rate limit of 100 requests per minute.",
+            "after": "The Pro plan includes a rate limit of 60 requests per minute.",
+            "page_name": "Acme Cloud Pricing",
+            "page_url": "https://example.invalid/pricing"
+          }
+        ],
+        "judgments": [
+          {
+            "hunk_id": "hunk-d40c44e5365a",
+            "page_name": "Acme Cloud Pricing",
+            "page_url": "https://example.invalid/pricing",
+            "kind": "changed",
+            "classification": "material",
+            "summary": "The Pro plan monthly price increased from $29 to $49.",
+            "before": "The Pro plan is $29 per month.",
+            "after": "The Pro plan is $49 per month.",
+            "impact": "pricing",
+            "prefilter_verdict": "likely_material",
+            "prefilter_reasons": [
+              "numeric:$29->$49"
+            ],
+            "source": "sample"
+          },
+          {
+            "hunk_id": "hunk-f0e44dc0e9ca",
+            "page_name": "Acme Cloud Pricing",
+            "page_url": "https://example.invalid/pricing",
+            "kind": "changed",
+            "classification": "material",
+            "summary": "The Pro plan rate limit dropped from 100 to 60 requests per minute.",
+            "before": "The Pro plan includes a rate limit of 100 requests per minute.",
+            "after": "The Pro plan includes a rate limit of 60 requests per minute.",
+            "impact": "limits",
+            "prefilter_verdict": "likely_material",
+            "prefilter_reasons": [
+              "keyword:limit",
+              "numeric:100->60"
+            ],
+            "source": "sample"
+          }
+        ],
+        "keywords": [
+          "price",
+          "pricing",
+          "deprecat",
+          "limit",
+          "quota",
+          "arbitration",
+          "liability",
+          "unavailable",
+          "sunset",
+          "breaking"
+        ]
+      },
+      {
+        "name": "Acme API Docs",
+        "url": "https://example.invalid/docs",
+        "status": "no_material_change",
+        "note": "No material change.",
+        "hunks": [],
+        "judgments": [],
+        "keywords": [
+          "price",
+          "pricing",
+          "deprecat",
+          "limit",
+          "quota",
+          "arbitration",
+          "liability",
+          "unavailable",
+          "sunset",
+          "breaking"
+        ]
+      },
+      {
+        "name": "Acme Terms of Service",
+        "url": "https://example.invalid/terms",
+        "status": "material",
+        "note": "",
+        "hunks": [
+          {
+            "hunk_id": "hunk-69779b4769db",
+            "kind": "added",
+            "before": "",
+            "after": "Disputes are resolved by binding arbitration in Delaware. Class actions are waived.",
+            "page_name": "Acme Terms of Service",
+            "page_url": "https://example.invalid/terms"
+          }
+        ],
+        "judgments": [
+          {
+            "hunk_id": "hunk-69779b4769db",
+            "page_name": "Acme Terms of Service",
+            "page_url": "https://example.invalid/terms",
+            "kind": "added",
+            "classification": "material",
+            "summary": "A new clause sends disputes to binding arbitration in Delaware and waives class actions.",
+            "before": "",
+            "after": "Disputes are resolved by binding arbitration in Delaware. Class actions are waived.",
+            "impact": "legal",
+            "prefilter_verdict": "likely_material",
+            "prefilter_reasons": [
+              "keyword:arbitration"
+            ],
+            "source": "sample"
+          }
+        ],
+        "keywords": [
+          "price",
+          "pricing",
+          "deprecat",
+          "limit",
+          "quota",
+          "arbitration",
+          "liability",
+          "unavailable",
+          "sunset",
+          "breaking",
+          "terms"
+        ]
+      }
+    ],
+    "pages_checked": 3,
+    "errors": [],
+    "judge_mode": "sample",
+    "delivery_note": "The brief is rendered only. Scheduled delivery stays off until dry_run=false and Gmail or webhook settings are present."
+  }
+}

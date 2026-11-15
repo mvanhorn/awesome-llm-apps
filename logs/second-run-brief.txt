@@ -1,0 +1,36 @@
+Page Watch Brief
+Generated: 2026-11-15T17:51:18+00:00
+Watch list: /tmp/page-watch-capture/watchlist/watchlist.yaml
+Watch mode: live_fetch
+Judge mode: sample
+Pages checked: 3
+
+Changes that need attention:
+
+Acme Cloud Pricing
+URL: http://127.0.0.1:8765/pricing.html
+- material: The Pro plan monthly price increased from $29 to $49.
+  Impact: pricing
+  Pre-filter: likely_material (numeric:$29->$49)
+  Source: sample
+  Before: The Pro plan is $29 per month.
+  After: The Pro plan is $49 per month.
+- material: The Pro plan rate limit dropped from 100 to 60 requests per minute.
+  Impact: limits
+  Pre-filter: likely_material (keyword:limit, numeric:100->60)
+  Source: sample
+  Before: The Pro plan includes a rate limit of 100 requests per minute.
+  After: The Pro plan includes a rate limit of 60 requests per minute.
+
+Acme API Docs
+URL: http://127.0.0.1:8765/docs.html
+- No material change.
+
+Acme Terms of Service
+URL: http://127.0.0.1:8765/terms.html
+- material: A new clause sends disputes to binding arbitration in Delaware and waives class actions.
+  Impact: legal
+  Pre-filter: likely_material (keyword:arbitration)
+  Source: sample
+  Before: (none)
+  After: Disputes are resolved by binding arbitration in Delaware. Class actions are waived.

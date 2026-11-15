@@ -1,0 +1,10 @@
+Serving HTTP on 127.0.0.1 port 8765 (http://127.0.0.1:8765/) ...
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /pricing.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /docs.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /terms.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /pricing.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /docs.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /terms.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /pricing.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /docs.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 17:51:18] "GET /terms.html HTTP/1.1" 200 -

@@ -1,0 +1,21 @@
+hunk source = prefilter_fallback
+Page Watch Brief
+Generated: 2026-11-15T17:51:30+00:00
+Watch list: fixture (Gemini unavailable)
+Watch mode: live_fetch
+Judge mode: unavailable
+Pages checked: 1
+
+Changes that need attention:
+
+Acme Cloud Pricing
+URL: https://example.invalid/pricing
+- material: A numeric value changed from $29 to $49.
+  Impact: pricing
+  Pre-filter: likely_material (numeric:$29->$49)
+  Source: prefilter_fallback (Gemini did not judge this hunk)
+  Before: The Pro plan is $29 per month.
+  After: The Pro plan is $49 per month.
+
+Scan notes:
+- 1 hunk(s) marked source=prefilter_fallback; Gemini did not judge them and the deterministic pre-filter was used.

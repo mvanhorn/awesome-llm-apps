@@ -1,0 +1,20 @@
+=== out.mp4 ===
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/tmp/page-watch-capture/out.mp4':
+  Metadata:
+    minor_version   : 512
+    major_brand     : isom
+    compatible_brands: isomiso2avc1mp41
+    hyperframes_version: 0.9.53
+    hyperframes_renderer: hyperframes
+    encoder         : Lavf60.16.100
+  Duration: 00:00:24.00, start: 0.000000, bitrate: 340 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 339 kb/s, 30 fps, 30 tbr, 15360 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.31.102 libx264
+
+=== preview.gif ===
+Input #0, gif, from '/tmp/page-watch-capture/preview.gif':
+  Duration: 00:00:24.01, start: 0.000000, bitrate: 117 kb/s
+  Stream #0:0: Video: gif, bgra, 960x540 [SAR 64:64 DAR 16:9], 8.33 fps, 8 tbr, 100 tbn

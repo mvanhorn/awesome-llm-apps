@@ -1,0 +1,283 @@
+# Page Watch demo capture
+# Sample/fixture mode: recorded sample judgments. No Gemini calls.
+# Lines after each command are exact stdout/stderr.
+$ python3 --version
+Python 3.12.3
+[exit 0]
+$ python3 -m compileall always_on_agents/page_watch_agent
+Listing 'always_on_agents/page_watch_agent'...
+Listing 'always_on_agents/page_watch_agent/tests'...
+Listing 'always_on_agents/page_watch_agent/tests/eval'...
+Listing 'always_on_agents/page_watch_agent/tests/unit'...
+[exit 0]
+$ python3 watch.py --sample
+# recorded sample pages and recorded judgments; no fetch, no model
+Page Watch Brief
+Generated: 2026-11-15T17:51:17+00:00
+Watch list: deterministic sample pages
+Watch mode: sample
+Judge mode: sample
+Pages checked: 3
+
+Changes that need attention:
+
+Acme Cloud Pricing
+URL: https://example.invalid/pricing
+- material: The Pro plan monthly price increased from $29 to $49.
+  Impact: pricing
+  Pre-filter: likely_material (numeric:$29->$49)
+  Source: sample
+  Before: The Pro plan is $29 per month.
+  After: The Pro plan is $49 per month.
+- material: The Pro plan rate limit dropped from 100 to 60 requests per minute.
+  Impact: limits
+  Pre-filter: likely_material (keyword:limit, numeric:100->60)
+  Source: sample
+  Before: The Pro plan includes a rate limit of 100 requests per minute.
+  After: The Pro plan includes a rate limit of 60 requests per minute.
+
+Acme API Docs
+URL: https://example.invalid/docs
+- No material change.
+
+Acme Terms of Service
+URL: https://example.invalid/terms
+- material: A new clause sends disputes to binding arbitration in Delaware and waives class actions.
+  Impact: legal
+  Pre-filter: likely_material (keyword:arbitration)
+  Source: sample
+  Before: (none)
+  After: Disputes are resolved by binding arbitration in Delaware. Class actions are waived.
+[exit 0]
+$ python3 -m http.server 8765 --bind 127.0.0.1 --directory pages
+[http.server pid 6813]
+$ curl -sS -D - -o /dev/null http://127.0.0.1:8765/pricing.html
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.12.3
+Date: Sun, 15 Nov 2026 17:51:18 GMT
+Content-type: text/html
+Content-Length: 597
+Last-Modified: Sun, 15 Nov 2026 17:09:25 GMT
+
+[exit 0]
+$ curl -sS -D - -o /dev/null http://127.0.0.1:8765/docs.html
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.12.3
+Date: Sun, 15 Nov 2026 17:51:18 GMT
+Content-type: text/html
+Content-Length: 487
+Last-Modified: Sun, 15 Nov 2026 17:09:25 GMT
+
+[exit 0]
+$ curl -sS -D - -o /dev/null http://127.0.0.1:8765/terms.html
+HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.12.3
+Date: Sun, 15 Nov 2026 17:51:18 GMT
+Content-type: text/html
+Content-Length: 308
+Last-Modified: Sun, 15 Nov 2026 17:09:25 GMT
+
+[exit 0]
+$ python3 watch.py --fetch --watchlist /tmp/page-watch-capture/watchlist/watchlist.yaml --snapshot-dir /tmp/page-watch-capture/snapshots
+# first fetch: capture baselines from v1 fixture pages; PAGE_WATCH_LIVE_MODEL=false
+Page Watch Brief
+Generated: 2026-11-15T17:51:18+00:00
+Watch list: /tmp/page-watch-capture/watchlist/watchlist.yaml
+Watch mode: live_fetch
+Judge mode: sample
+Pages checked: 3
+
+Changes that need attention:
+
+Acme Cloud Pricing
+URL: http://127.0.0.1:8765/pricing.html
+- Baseline captured. Future runs will brief material changes.
+
+Acme API Docs
+URL: http://127.0.0.1:8765/docs.html
+- Baseline captured. Future runs will brief material changes.
+
+Acme Terms of Service
+URL: http://127.0.0.1:8765/terms.html
+- Baseline captured. Future runs will brief material changes.
+[exit 0]
+$ cp pages_v2/*.html pages/
+# swapped in v2: price $29->$49, rate limit 100->60, docs footer/timestamp only, new arbitration clause
+[exit 0]
+$ python3 watch.py --fetch --watchlist /tmp/page-watch-capture/watchlist/watchlist.yaml --snapshot-dir /tmp/page-watch-capture/snapshots
+# second fetch: material brief using recorded sample judgments (judge_mode=sample)
+Page Watch Brief
+Generated: 2026-11-15T17:51:18+00:00
+Watch list: /tmp/page-watch-capture/watchlist/watchlist.yaml
+Watch mode: live_fetch
+Judge mode: sample
+Pages checked: 3
+
+Changes that need attention:
+
+Acme Cloud Pricing
+URL: http://127.0.0.1:8765/pricing.html
+- material: The Pro plan monthly price increased from $29 to $49.
+  Impact: pricing
+  Pre-filter: likely_material (numeric:$29->$49)
+  Source: sample
+  Before: The Pro plan is $29 per month.
+  After: The Pro plan is $49 per month.
+- material: The Pro plan rate limit dropped from 100 to 60 requests per minute.
+  Impact: limits
+  Pre-filter: likely_material (keyword:limit, numeric:100->60)
+  Source: sample
+  Before: The Pro plan includes a rate limit of 100 requests per minute.
+  After: The Pro plan includes a rate limit of 60 requests per minute.
+
+Acme API Docs
+URL: http://127.0.0.1:8765/docs.html
+- No material change.
+
+Acme Terms of Service
+URL: http://127.0.0.1:8765/terms.html
+- material: A new clause sends disputes to binding arbitration in Delaware and waives class actions.
+  Impact: legal
+  Pre-filter: likely_material (keyword:arbitration)
+  Source: sample
+  Before: (none)
+  After: Disputes are resolved by binding arbitration in Delaware. Class actions are waived.
+[exit 0]
+# judge_mode=sample watch_mode=live_fetch (recorded sample judgments; not gemini)
+$ google-chrome --headless=new --window-size=1920,1080 --screenshot=screenshots/html-brief.png brief.html
+[exit 0]
+$ python3 - <<'PY'
+from always_on_agents.page_watch_agent.watch import diff_paragraphs
+from always_on_agents.page_watch_agent.judge import judge_hunks
+from always_on_agents.page_watch_agent.delivery import render_brief
+hunks = diff_paragraphs(
+    'The Pro plan is $29 per month.',
+    'The Pro plan is $49 per month.',
+    page_name='Acme Cloud Pricing',
+    page_url='https://example.invalid/pricing',
+)
+judged = judge_hunks(hunks, keywords=('price', 'limit'), sample=False)
+print('hunk source =', judged[0].source)
+brief = render_brief(
+    [{
+        'name': 'Acme Cloud Pricing',
+        'url': 'https://example.invalid/pricing',
+        'status': 'material',
+        'note': '',
+        'hunks': [hunk.to_dict() for hunk in hunks],
+        'judgments': [item.to_dict() for item in judged],
+    }],
+        watch_mode='live_fetch',
+        watchlist_path='fixture (Gemini unavailable)',
+        pages_checked=1,
+        judge_mode='unavailable',
+)
+print(brief.text)
+PY
+# Gemini is not configured. This prints the brief label used when the model does not judge a hunk.
+hunk source = prefilter_fallback
+Page Watch Brief
+Generated: 2026-11-15T17:51:30+00:00
+Watch list: fixture (Gemini unavailable)
+Watch mode: live_fetch
+Judge mode: unavailable
+Pages checked: 1
+
+Changes that need attention:
+
+Acme Cloud Pricing
+URL: https://example.invalid/pricing
+- material: A numeric value changed from $29 to $49.
+  Impact: pricing
+  Pre-filter: likely_material (numeric:$29->$49)
+  Source: prefilter_fallback (Gemini did not judge this hunk)
+  Before: The Pro plan is $29 per month.
+  After: The Pro plan is $49 per month.
+
+Scan notes:
+- 1 hunk(s) marked source=prefilter_fallback; Gemini did not judge them and the deterministic pre-filter was used.
+[exit 0]
+$ uvicorn scheduler_api:app --host 127.0.0.1 --port 8766
+[uvicorn pid 6969]
+$ curl -sS http://127.0.0.1:8766/health
+{"status":"ok"}
+[exit 0]
+$ python3 - <<'PY'
+import json, urllib.request
+raw = urllib.request.urlopen('http://127.0.0.1:8766/page-watch/dry-run').read()
+data = json.loads(raw)
+open('/tmp/page-watch-capture/logs/dry-run.json','w').write(json.dumps(data, indent=2)+'\n')
+print('dry_run =', data['dry_run'])
+print('delivery.attempted =', data['delivery']['attempted'])
+print('delivery.sent =', data['delivery']['sent'])
+print('delivery.status =', data['delivery']['status'])
+print('delivery.detail =', data['delivery']['detail'])
+print('judge_mode =', data['brief'].get('judge_mode'))
+print()
+print(data['brief']['text'])
+PY
+# GET /page-watch/dry-run uses sample pages when live is omitted
+dry_run = True
+delivery.attempted = False
+delivery.sent = False
+delivery.status = dry_run
+delivery.detail = Set dry_run=false to use configured Gmail or webhook delivery.
+judge_mode = sample
+
+Page Watch Brief
+Generated: 2026-11-15T17:51:31+00:00
+Watch list: deterministic sample pages
+Watch mode: sample
+Judge mode: sample
+Pages checked: 3
+
+Changes that need attention:
+
+Acme Cloud Pricing
+URL: https://example.invalid/pricing
+- material: The Pro plan monthly price increased from $29 to $49.
+  Impact: pricing
+  Pre-filter: likely_material (numeric:$29->$49)
+  Source: sample
+  Before: The Pro plan is $29 per month.
+  After: The Pro plan is $49 per month.
+- material: The Pro plan rate limit dropped from 100 to 60 requests per minute.
+  Impact: limits
+  Pre-filter: likely_material (keyword:limit, numeric:100->60)
+  Source: sample
+  Before: The Pro plan includes a rate limit of 100 requests per minute.
+  After: The Pro plan includes a rate limit of 60 requests per minute.
+
+Acme API Docs
+URL: https://example.invalid/docs
+- No material change.
+
+Acme Terms of Service
+URL: https://example.invalid/terms
+- material: A new clause sends disputes to binding arbitration in Delaware and waives class actions.
+  Impact: legal
+  Pre-filter: likely_material (keyword:arbitration)
+  Source: sample
+  Before: (none)
+  After: Disputes are resolved by binding arbitration in Delaware. Class actions are waived.
+[exit 0]
+$ python3 - <<'PY'
+import json, urllib.request
+req = urllib.request.Request(
+    'http://127.0.0.1:8766/page-watch/trigger',
+    data=json.dumps({'dry_run': True, 'live': False}).encode(),
+    headers={'Content-Type': 'application/json'},
+    method='POST',
+)
+data = json.loads(urllib.request.urlopen(req).read())
+print('dry_run =', data['dry_run'])
+print('delivery.sent =', data['delivery']['sent'])
+print('delivery.status =', data['delivery']['status'])
+print('nothing sent:', data['delivery']['sent'] is False)
+PY
+# POST /page-watch/trigger with {"dry_run": true, "live": false}
+dry_run = True
+delivery.sent = False
+delivery.status = dry_run
+nothing sent: True
+[exit 0]
